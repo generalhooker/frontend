@@ -35,7 +35,6 @@ const navItems: NavItem[] = [
   { label: "Detector de IA", icon: AiIcon },
   { label: "Histórico", icon: Clock },
   { label: "Favoritos", icon: Star, mobile: true },
-  { label: "Lixeira", icon: Trash2 },
 ]
 
 // Ícone custom "AI" em caixa para o Detector de IA

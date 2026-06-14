@@ -125,51 +125,46 @@ export function AppSidebar() {
         </div>
       </aside>
 
-      {/* ===== Barra de navegação inferior (mobile, abaixo de md) ===== */}
-      <nav
-        className="fixed inset-x-0 bottom-0 z-50 flex items-stretch justify-around border-t border-border bg-background pb-[env(safe-area-inset-bottom)] md:hidden"
-        aria-label="Navegação principal"
-      >
-        {mobileItems.map(({ label, icon: Icon }) => {
-          const isActive = active === label
-          return (
-            <button
-              key={label}
-              type="button"
-              onClick={() => setActive(label)}
-              aria-current={isActive ? "page" : undefined}
-              aria-label={label}
-              className={cn(
-                "flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[11px] font-medium transition-colors",
-                isActive ? "text-primary" : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              <span
+      {/* ===== Barra de navegação flutuante (mobile, abaixo de md) ===== */}
+      <div className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:hidden">
+        <nav
+          className="flex w-auto max-w-full items-stretch justify-center gap-1 rounded-full border border-border bg-background/90 px-2 py-2 shadow-lg backdrop-blur"
+          aria-label="Navegação principal"
+        >
+          {mobileItems.map(({ label, icon: Icon }) => {
+            const isActive = active === label
+            return (
+              <button
+                key={label}
+                type="button"
+                onClick={() => setActive(label)}
+                aria-current={isActive ? "page" : undefined}
+                aria-label={label}
+                title={label}
                 className={cn(
-                  "flex items-center justify-center rounded-full px-4 py-1 transition-colors",
-                  isActive ? "bg-primary text-primary-foreground" : "bg-transparent",
+                  "flex size-11 items-center justify-center rounded-full transition-colors",
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                 )}
               >
                 <Icon className="size-5 shrink-0" />
-              </span>
-              <span className="max-w-full truncate">{label}</span>
-            </button>
-          )
-        })}
-        {/* Perfil do usuário */}
-        <button
-          type="button"
-          aria-label="Usuário"
-          className="flex flex-1 flex-col items-center justify-center gap-1 py-2 text-[11px] font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <span className="flex items-center justify-center rounded-full px-4 py-1">
-            <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground">
+              </button>
+            )
+          })}
+          {/* Perfil do usuário */}
+          <button
+            type="button"
+            aria-label="Usuário"
+            title="Usuário"
+            className="flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            <span className="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
               <User className="size-4" />
             </span>
-          </span>
-          <span className="max-w-full truncate">Perfil</span>
-        </button>
-      </nav>
+          </button>
+        </nav>
+      </div>
     </>
   )
 }

@@ -92,7 +92,7 @@ function WordsUsedCard() {
         </p>
 
         {/* Número em destaque */}
-        <p className="mt-2 text-2xl font-extrabold tracking-tight">
+        <p className="mt-2 text-2xl font-extrabold tracking-tight text-violet-600">
           {WORDS_USED.toLocaleString("pt-BR")}
         </p>
 

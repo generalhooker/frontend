@@ -9,9 +9,6 @@ import {
   ShieldCheck,
   Clock,
   Star,
-  Trash2,
-  ChevronRight,
-  User,
   Search,
   X,
   Menu,
@@ -53,7 +50,62 @@ function AiIcon({ className }: { className?: string }) {
 }
 
 const WORDS_USED = 12450
-const WORDS_LIMIT = 100000
+
+// Decoração de órbita com "Aa" (lado direito do card)
+function OrbitDecoration() {
+  return (
+    <div className="relative size-24 shrink-0" aria-hidden="true">
+      {/* Anel da órbita */}
+      <div className="absolute inset-0 rounded-full border border-violet-500/30" />
+      {/* Pontos orbitando */}
+      <span className="absolute right-1 top-2 size-2 rounded-full bg-violet-400 shadow-[0_0_8px_2px_rgba(167,139,250,0.6)]" />
+      <span className="absolute bottom-3 left-1 size-2 rounded-full bg-violet-400 shadow-[0_0_8px_2px_rgba(167,139,250,0.6)]" />
+      {/* Caixa central "Aa" */}
+      <div className="absolute inset-0 m-auto flex size-12 items-center justify-center rounded-2xl border border-violet-500/40 bg-violet-500/10 text-xl font-bold text-violet-200">
+        Aa
+      </div>
+    </div>
+  )
+}
+
+// Card de palavras usadas no estilo escuro com acento roxo
+function WordsUsedCard() {
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-violet-500/20 bg-[#0e0e14] p-4 text-white">
+      {/* Decoração da órbita (fundo, canto superior direito) */}
+      <div className="pointer-events-none absolute -right-4 -top-2 opacity-40">
+        <OrbitDecoration />
+      </div>
+
+      <div className="relative flex flex-col">
+        {/* Cabeçalho: ícone + título */}
+        <div className="flex items-center gap-3">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-violet-500/40 bg-violet-500/10 text-violet-300">
+            <FileText className="size-5" />
+          </span>
+          <p className="text-base font-bold leading-tight text-white">Palavras usadas</p>
+        </div>
+        <p className="mt-2 max-w-[70%] text-xs leading-relaxed text-zinc-400">
+          Total de palavras utilizadas no seu conteúdo
+        </p>
+
+        {/* Número em destaque */}
+        <p className="mt-4 text-4xl font-extrabold tracking-tight text-violet-400">
+          {WORDS_USED.toLocaleString("pt-BR")}
+        </p>
+
+        {/* Indicador em tempo real */}
+        <div className="mt-4 flex items-center gap-2">
+          <span className="relative flex size-2.5 shrink-0">
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-violet-400 opacity-60" />
+            <span className="relative inline-flex size-2.5 rounded-full bg-violet-400" />
+          </span>
+          <span className="text-xs text-zinc-400">Contagem atualizada em tempo real</span>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function AppSidebar() {
   const [active, setActive] = useState("Dashboard")
@@ -62,7 +114,6 @@ export function AppSidebar() {
   const [menuMounted, setMenuMounted] = useState(false)
   // Controla as classes de transição (ativadas no frame seguinte à montagem)
   const [menuVisible, setMenuVisible] = useState(false)
-  const percent = Math.round((WORDS_USED / WORDS_LIMIT) * 100)
 
   // Trava o scroll do site enquanto o menu mobile estiver aberto
   useEffect(() => {
@@ -123,12 +174,7 @@ export function AppSidebar() {
 
         {/* Rodapé: uso */}
         <div className="flex flex-col gap-3 p-3">
-          <div className="rounded-xl border border-border bg-card p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Palavras usadas</p>
-            <p className="mt-3 text-3xl font-bold text-foreground">
-              {WORDS_USED.toLocaleString("pt-BR")}
-            </p>
-          </div>
+          <WordsUsedCard />
         </div>
       </aside>
 

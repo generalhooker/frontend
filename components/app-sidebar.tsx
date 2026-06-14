@@ -71,36 +71,36 @@ function OrbitDecoration() {
 // Card de palavras usadas no estilo escuro com acento roxo
 function WordsUsedCard() {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-violet-500/20 bg-[#0e0e14] p-4 text-white">
+    <div className="relative overflow-hidden rounded-xl border border-violet-500/20 bg-[#0e0e14] p-3 text-white">
       {/* Decoração da órbita (fundo, canto superior direito) */}
-      <div className="pointer-events-none absolute -right-4 -top-2 opacity-40">
+      <div className="pointer-events-none absolute -right-6 -top-4 scale-75 opacity-40">
         <OrbitDecoration />
       </div>
 
       <div className="relative flex flex-col">
         {/* Cabeçalho: ícone + título */}
-        <div className="flex items-center gap-3">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-violet-500/40 bg-violet-500/10 text-violet-300">
-            <FileText className="size-5" />
+        <div className="flex items-center gap-2">
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-violet-500/40 bg-violet-500/10 text-violet-300">
+            <FileText className="size-4" />
           </span>
-          <p className="text-base font-bold leading-tight text-white">Palavras usadas</p>
+          <p className="text-sm font-bold leading-tight text-white">Palavras usadas</p>
         </div>
-        <p className="mt-2 max-w-[70%] text-xs leading-relaxed text-zinc-400">
+        <p className="mt-1.5 max-w-[70%] text-[11px] leading-snug text-zinc-400">
           Total de palavras utilizadas no seu conteúdo
         </p>
 
         {/* Número em destaque */}
-        <p className="mt-4 text-4xl font-extrabold tracking-tight text-violet-400">
+        <p className="mt-2 text-2xl font-extrabold tracking-tight text-violet-400">
           {WORDS_USED.toLocaleString("pt-BR")}
         </p>
 
         {/* Indicador em tempo real */}
-        <div className="mt-4 flex items-center gap-2">
-          <span className="relative flex size-2.5 shrink-0">
+        <div className="mt-2 flex items-center gap-2">
+          <span className="relative flex size-2 shrink-0">
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-violet-400 opacity-60" />
-            <span className="relative inline-flex size-2.5 rounded-full bg-violet-400" />
+            <span className="relative inline-flex size-2 rounded-full bg-violet-400" />
           </span>
-          <span className="text-xs text-zinc-400">Contagem atualizada em tempo real</span>
+          <span className="text-[11px] text-zinc-400">Contagem atualizada em tempo real</span>
         </div>
       </div>
     </div>

@@ -79,9 +79,15 @@ export function AppSidebar() {
   useEffect(() => {
     if (menuOpen) {
       setMenuMounted(true)
-      // Aplica o estado visível no próximo frame para disparar a transição de entrada
-      const raf = requestAnimationFrame(() => setMenuVisible(true))
-      return () => cancelAnimationFrame(raf)
+      // Aplica o estado visível após o navegador pintar o estado inicial (duplo rAF)
+      let inner = 0
+      const outer = requestAnimationFrame(() => {
+        inner = requestAnimationFrame(() => setMenuVisible(true))
+      })
+      return () => {
+        cancelAnimationFrame(outer)
+        cancelAnimationFrame(inner)
+      }
     }
     setMenuVisible(false)
     const timeout = setTimeout(() => setMenuMounted(false), 250)

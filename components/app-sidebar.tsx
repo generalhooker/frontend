@@ -71,7 +71,7 @@ function OrbitDecoration() {
 // Card de palavras usadas no estilo escuro com acento roxo
 function WordsUsedCard() {
   return (
-    <div className="relative overflow-hidden rounded-xl border border-violet-500/20 bg-[#0e0e14] p-3 text-white">
+    <div className="relative overflow-hidden rounded-xl border border-border bg-card p-3 text-card-foreground">
       {/* Decoração da órbita (fundo, canto superior direito) */}
       <div className="pointer-events-none absolute -right-6 -top-4 scale-75 opacity-40">
         <OrbitDecoration />
@@ -80,27 +80,27 @@ function WordsUsedCard() {
       <div className="relative flex flex-col">
         {/* Cabeçalho: ícone + título */}
         <div className="flex items-center gap-2">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-violet-500/40 bg-violet-500/10 text-violet-300">
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-600">
             <FileText className="size-4" />
           </span>
-          <p className="text-sm font-bold leading-tight text-white">Palavras usadas</p>
+          <p className="text-sm font-bold leading-tight text-foreground">Palavras usadas</p>
         </div>
-        <p className="mt-1.5 max-w-[70%] text-[11px] leading-snug text-zinc-400">
+        <p className="mt-1.5 max-w-[70%] text-[11px] leading-snug text-muted-foreground">
           Total de palavras utilizadas no seu conteúdo
         </p>
 
         {/* Número em destaque */}
-        <p className="mt-2 text-2xl font-extrabold tracking-tight text-violet-400">
+        <p className="mt-2 text-2xl font-extrabold tracking-tight text-violet-600">
           {WORDS_USED.toLocaleString("pt-BR")}
         </p>
 
         {/* Indicador em tempo real */}
         <div className="mt-2 flex items-center gap-2">
           <span className="relative flex size-2 shrink-0">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-violet-400 opacity-60" />
-            <span className="relative inline-flex size-2 rounded-full bg-violet-400" />
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-violet-500 opacity-60" />
+            <span className="relative inline-flex size-2 rounded-full bg-violet-500" />
           </span>
-          <span className="text-[11px] text-zinc-400">Contagem atualizada em tempo real</span>
+          <span className="text-[11px] text-muted-foreground">Contagem atualizada em tempo real</span>
         </div>
       </div>
     </div>

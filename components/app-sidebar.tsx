@@ -73,7 +73,7 @@ function WordsUsedCard() {
   return (
     <div className="relative overflow-hidden rounded-xl border border-border bg-card p-3 text-card-foreground">
       {/* Decoração da órbita (fundo, canto superior direito) */}
-      <div className="pointer-events-none absolute -right-6 -top-4 scale-75 opacity-40">
+      <div className="pointer-events-none absolute -right-6 -top-4 scale-75 opacity-80">
         <OrbitDecoration />
       </div>
 

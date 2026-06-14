@@ -121,22 +121,8 @@ export function AppSidebar() {
           })}
         </nav>
 
-        {/* Rodapé: usuário + uso */}
+        {/* Rodapé: uso */}
         <div className="flex flex-col gap-3 p-3">
-          <button
-            type="button"
-            className="flex items-center gap-3 rounded-xl bg-muted px-4 py-3 text-left transition-colors hover:bg-accent"
-          >
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <User className="size-5" />
-            </span>
-            <span className="flex min-w-0 flex-1 flex-col">
-              <span className="truncate text-sm font-semibold text-foreground">Usuário</span>
-              <span className="truncate text-xs text-muted-foreground">Plano Premium</span>
-            </span>
-            <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
-          </button>
-
           <div className="rounded-xl border border-border p-4">
             <p className="text-sm font-medium text-foreground">Palavras usadas</p>
             <p className="mt-1 text-sm text-muted-foreground">

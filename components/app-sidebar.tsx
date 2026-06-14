@@ -151,8 +151,21 @@ export function AppSidebar() {
     <>
       {/* ===== Sidebar (md e acima) ===== */}
       <aside className="hidden h-dvh w-72 flex-col border-r border-border bg-background md:flex">
+        {/* Barra de pesquisa */}
+        <div className="px-3 pt-6">
+          <div className="flex items-center gap-2 rounded-xl border border-border bg-muted px-3 py-2.5 transition-colors focus-within:border-ring focus-within:bg-background">
+            <Search className="size-4 shrink-0 text-muted-foreground" />
+            <input
+              type="search"
+              placeholder="Pesquisar"
+              aria-label="Pesquisar"
+              className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+            />
+          </div>
+        </div>
+
         {/* Navegação */}
-        <nav className="flex flex-1 flex-col gap-1 px-3 pt-10" aria-label="Navegação principal">
+        <nav className="flex flex-1 flex-col gap-1 px-3 pt-4" aria-label="Navegação principal">
           {navItems.map(({ label, icon: Icon }) => {
             const isActive = active === label
             return (

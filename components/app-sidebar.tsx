@@ -12,6 +12,8 @@ import {
   Trash2,
   ChevronRight,
   User,
+  Search,
+  LayoutGrid,
   type LucideIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -55,6 +57,7 @@ const WORDS_LIMIT = 100000
 
 export function AppSidebar() {
   const [active, setActive] = useState("Dashboard")
+  const [menuOpen, setMenuOpen] = useState(false)
   const percent = Math.round((WORDS_USED / WORDS_LIMIT) * 100)
   const mobileItems = navItems.filter((item) => item.mobile)
 
@@ -125,45 +128,66 @@ export function AppSidebar() {
         </div>
       </aside>
 
-      {/* ===== Barra de navegação flutuante (mobile, abaixo de md) ===== */}
-      <div className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:hidden">
-        <nav
-          className="flex w-auto max-w-full items-stretch justify-center gap-1 rounded-full border border-border bg-background/90 px-2 py-2 shadow-lg backdrop-blur"
-          aria-label="Navegação principal"
-        >
-          {mobileItems.map(({ label, icon: Icon }) => {
-            const isActive = active === label
-            return (
-              <button
-                key={label}
-                type="button"
-                onClick={() => setActive(label)}
-                aria-current={isActive ? "page" : undefined}
-                aria-label={label}
-                title={label}
-                className={cn(
-                  "flex size-11 items-center justify-center rounded-full transition-colors",
-                  isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-                )}
-              >
-                <Icon className="size-5 shrink-0" />
-              </button>
-            )
-          })}
-          {/* Perfil do usuário */}
+      {/* ===== Barra de pesquisa flutuante (mobile, abaixo de md) ===== */}
+      <div className="fixed inset-x-0 bottom-0 z-50 flex flex-col items-center gap-3 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:hidden">
+        {/* Menu de navegação suspenso */}
+        {menuOpen && (
+          <nav
+            className="w-full max-w-sm rounded-2xl border border-border bg-background/95 p-2 shadow-lg backdrop-blur"
+            aria-label="Navegação principal"
+          >
+            <div className="grid grid-cols-4 gap-1">
+              {mobileItems.map(({ label, icon: Icon }) => {
+                const isActive = active === label
+                return (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => {
+                      setActive(label)
+                      setMenuOpen(false)
+                    }}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      "flex flex-col items-center justify-center gap-1.5 rounded-xl px-2 py-3 text-[11px] font-medium transition-colors",
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                    )}
+                  >
+                    <Icon className="size-5 shrink-0" />
+                    <span className="max-w-full truncate">{label}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </nav>
+        )}
+
+        {/* Campo de pesquisa */}
+        <div className="flex w-full max-w-sm items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2.5 shadow-lg backdrop-blur">
+          <Search className="size-5 shrink-0 text-muted-foreground" />
+          <input
+            type="search"
+            placeholder="Pesquisar"
+            aria-label="Pesquisar"
+            className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+          />
           <button
             type="button"
-            aria-label="Usuário"
-            title="Usuário"
-            className="flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-label="Abrir menu de navegação"
+            className={cn(
+              "flex size-8 shrink-0 items-center justify-center rounded-full transition-colors",
+              menuOpen
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+            )}
           >
-            <span className="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <User className="size-4" />
-            </span>
+            <LayoutGrid className="size-4" />
           </button>
-        </nav>
+        </div>
       </div>
     </>
   )

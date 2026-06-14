@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   LayoutDashboard,
   FileText,
@@ -60,6 +60,16 @@ export function AppSidebar() {
   const [active, setActive] = useState("Dashboard")
   const [menuOpen, setMenuOpen] = useState(false)
   const percent = Math.round((WORDS_USED / WORDS_LIMIT) * 100)
+
+  // Trava o scroll do site enquanto o menu mobile estiver aberto
+  useEffect(() => {
+    if (!menuOpen) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = previous
+    }
+  }, [menuOpen])
 
   return (
     <>
@@ -133,7 +143,7 @@ export function AppSidebar() {
       {menuOpen && (
         <div className="fixed inset-0 z-40 flex flex-col bg-background md:hidden">
           <nav
-            className="flex-1 overflow-y-auto p-2 pb-32 pt-4"
+            className="flex-1 overflow-y-auto overscroll-contain p-2 pb-32 pt-4"
             aria-label="Navegação principal"
           >
             <div className="rounded-2xl bg-card p-1">

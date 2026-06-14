@@ -123,25 +123,11 @@ export function AppSidebar() {
 
         {/* Rodapé: uso */}
         <div className="flex flex-col gap-3 p-3">
-          <div className="rounded-xl border border-border p-4">
-            <p className="text-sm font-medium text-foreground">Palavras usadas</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {WORDS_USED.toLocaleString("pt-BR")} / {WORDS_LIMIT.toLocaleString("pt-BR")}
+          <div className="rounded-xl border border-border bg-card p-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Palavras usadas</p>
+            <p className="mt-3 text-3xl font-bold text-foreground">
+              {WORDS_USED.toLocaleString("pt-BR")}
             </p>
-            <div className="mt-3 flex items-center gap-3">
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
-                <div
-                  className="h-full rounded-full bg-primary"
-                  style={{ width: `${percent}%` }}
-                  role="progressbar"
-                  aria-valuenow={percent}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-label="Palavras usadas"
-                />
-              </div>
-              <span className="text-sm font-medium text-foreground">{percent}%</span>
-            </div>
           </div>
         </div>
       </aside>

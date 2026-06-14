@@ -14,6 +14,7 @@ import {
   Menu,
   type LucideIcon,
 } from "lucide-react"
+import { MetalFx } from "metal-fx"
 import { cn } from "@/lib/utils"
 
 type NavItem = {
@@ -71,13 +72,14 @@ function OrbitDecoration() {
 // Card de palavras usadas no estilo escuro com acento roxo
 function WordsUsedCard() {
   return (
-    <div className="relative overflow-hidden rounded-xl border border-border bg-card p-3 text-card-foreground">
-      {/* Decoração da órbita (fundo, canto superior direito) */}
-      <div className="pointer-events-none absolute -right-6 -top-4 scale-75 opacity-80">
-        <OrbitDecoration />
-      </div>
+    <MetalFx preset="chromatic" theme="light" variant="button" strength={1} borderRadius={12}>
+      <div className="relative overflow-hidden rounded-xl border border-border bg-card p-3 text-card-foreground">
+        {/* Decoração da órbita (fundo, canto superior direito) */}
+        <div className="pointer-events-none absolute -right-6 -top-4 scale-75 opacity-80">
+          <OrbitDecoration />
+        </div>
 
-      <div className="relative flex flex-col">
+        <div className="relative flex flex-col">
         {/* Cabeçalho: ícone + título */}
         <div className="flex items-center gap-2">
           <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-600">
@@ -102,8 +104,9 @@ function WordsUsedCard() {
           </span>
           <span className="text-[11px] text-muted-foreground">Contagem atualizada em tempo real</span>
         </div>
+        </div>
       </div>
-    </div>
+    </MetalFx>
   )
 }
 

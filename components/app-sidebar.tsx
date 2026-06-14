@@ -13,7 +13,7 @@ import {
   ChevronRight,
   User,
   Search,
-  LayoutGrid,
+  X,
   type LucideIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -59,7 +59,6 @@ export function AppSidebar() {
   const [active, setActive] = useState("Dashboard")
   const [menuOpen, setMenuOpen] = useState(false)
   const percent = Math.round((WORDS_USED / WORDS_LIMIT) * 100)
-  const mobileItems = navItems.filter((item) => item.mobile)
 
   return (
     <>
@@ -128,16 +127,16 @@ export function AppSidebar() {
         </div>
       </aside>
 
-      {/* ===== Barra de pesquisa flutuante (mobile, abaixo de md) ===== */}
-      <div className="fixed inset-x-0 bottom-0 z-50 flex flex-col items-center gap-3 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:hidden">
-        {/* Menu de navegação suspenso */}
-        {menuOpen && (
+      {/* ===== Navegação mobile (abaixo de md) ===== */}
+      {/* Overlay do menu em tela cheia, estilo Vercel */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-40 flex flex-col bg-background md:hidden">
           <nav
-            className="w-full max-w-sm rounded-2xl border border-border bg-background/95 p-2 shadow-lg backdrop-blur"
+            className="flex-1 overflow-y-auto p-2 pb-32 pt-4"
             aria-label="Navegação principal"
           >
-            <div className="grid grid-cols-4 gap-1">
-              {mobileItems.map(({ label, icon: Icon }) => {
+            <div className="rounded-2xl bg-card p-1">
+              {navItems.map(({ label, icon: Icon }) => {
                 const isActive = active === label
                 return (
                   <button
@@ -149,43 +148,41 @@ export function AppSidebar() {
                     }}
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
-                      "flex flex-col items-center justify-center gap-1.5 rounded-xl px-2 py-3 text-[11px] font-medium transition-colors",
+                      "flex w-full items-center gap-4 rounded-xl px-4 py-4 text-left text-lg font-medium transition-colors",
                       isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                        ? "bg-accent text-foreground"
+                        : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
                     )}
                   >
-                    <Icon className="size-5 shrink-0" />
-                    <span className="max-w-full truncate">{label}</span>
+                    <Icon className="size-6 shrink-0" />
+                    <span className="flex-1 truncate">{label}</span>
                   </button>
                 )
               })}
             </div>
           </nav>
-        )}
+        </div>
+      )}
 
-        {/* Campo de pesquisa */}
-        <div className="flex w-full max-w-sm items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2.5 shadow-lg backdrop-blur">
+      {/* Pílula de busca flutuante (mobile) */}
+      <div className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:hidden">
+        <div className="flex w-auto max-w-full items-center gap-3 rounded-2xl border border-border bg-card px-5 py-3 shadow-lg">
           <Search className="size-5 shrink-0 text-muted-foreground" />
           <input
             type="search"
-            placeholder="Pesquisar"
+            placeholder="Find..."
             aria-label="Pesquisar"
-            className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+            className="w-32 min-w-0 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
           />
+          <span className="h-6 w-px shrink-0 bg-border" aria-hidden="true" />
           <button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
-            aria-label="Abrir menu de navegação"
-            className={cn(
-              "flex size-8 shrink-0 items-center justify-center rounded-full transition-colors",
-              menuOpen
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-            )}
+            aria-label={menuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
+            className="flex size-6 shrink-0 items-center justify-center text-foreground transition-opacity hover:opacity-70"
           >
-            <LayoutGrid className="size-4" />
+            <X className="size-5" />
           </button>
         </div>
       </div>

@@ -8,7 +8,7 @@ import {
   Hash,
   ShieldCheck,
   Clock,
-  Star,
+  Settings,
   Search,
   X,
   Menu,
@@ -32,7 +32,7 @@ const navItems: NavItem[] = [
   { label: "Corretor de redação", icon: ShieldCheck },
   { label: "Detector de IA", icon: AiIcon },
   { label: "Histórico", icon: Clock },
-  { label: "Favoritos", icon: Star, mobile: true },
+  { label: "Favoritos", icon: Settings, mobile: true },
 ]
 
 // Ícone custom "AI" em caixa para o Detector de IA

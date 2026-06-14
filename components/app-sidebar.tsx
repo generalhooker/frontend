@@ -59,6 +59,10 @@ const WORDS_LIMIT = 100000
 export function AppSidebar() {
   const [active, setActive] = useState("Dashboard")
   const [menuOpen, setMenuOpen] = useState(false)
+  // Mantém o overlay montado durante a animação de saída
+  const [menuMounted, setMenuMounted] = useState(false)
+  // Controla as classes de transição (ativadas no frame seguinte à montagem)
+  const [menuVisible, setMenuVisible] = useState(false)
   const percent = Math.round((WORDS_USED / WORDS_LIMIT) * 100)
 
   // Trava o scroll do site enquanto o menu mobile estiver aberto
@@ -69,6 +73,19 @@ export function AppSidebar() {
     return () => {
       document.body.style.overflow = previous
     }
+  }, [menuOpen])
+
+  // Controla montagem/desmontagem para animar abertura e fechamento
+  useEffect(() => {
+    if (menuOpen) {
+      setMenuMounted(true)
+      // Aplica o estado visível no próximo frame para disparar a transição de entrada
+      const raf = requestAnimationFrame(() => setMenuVisible(true))
+      return () => cancelAnimationFrame(raf)
+    }
+    setMenuVisible(false)
+    const timeout = setTimeout(() => setMenuMounted(false), 250)
+    return () => clearTimeout(timeout)
   }, [menuOpen])
 
   return (
@@ -140,14 +157,19 @@ export function AppSidebar() {
 
       {/* ===== Navegação mobile (abaixo de md) ===== */}
       {/* Overlay do menu em tela cheia, estilo Vercel */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-40 flex flex-col bg-background md:hidden">
+      {menuMounted && (
+        <div
+          className={cn(
+            "fixed inset-0 z-40 flex flex-col bg-background transition-opacity duration-200 ease-out md:hidden",
+            menuVisible ? "opacity-100" : "opacity-0",
+          )}
+        >
           <nav
             className="flex-1 overflow-y-auto overscroll-contain p-2 pb-32 pt-4"
             aria-label="Navegação principal"
           >
             <div className="rounded-2xl bg-card p-1">
-              {navItems.map(({ label, icon: Icon }) => {
+              {navItems.map(({ label, icon: Icon }, index) => {
                 const isActive = active === label
                 return (
                   <button
@@ -158,8 +180,10 @@ export function AppSidebar() {
                       setMenuOpen(false)
                     }}
                     aria-current={isActive ? "page" : undefined}
+                    style={{ transitionDelay: menuVisible ? `${index * 30}ms` : "0ms" }}
                     className={cn(
-                      "flex w-full items-center gap-4 rounded-xl px-4 py-4 text-left text-lg font-medium transition-colors",
+                      "flex w-full items-center gap-4 rounded-xl px-4 py-4 text-left text-lg font-medium transition-all duration-300 ease-out",
+                      menuVisible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
                       isActive
                         ? "bg-accent text-foreground"
                         : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",

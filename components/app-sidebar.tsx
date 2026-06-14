@@ -14,6 +14,7 @@ import {
   User,
   Search,
   X,
+  Menu,
   type LucideIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -166,13 +167,13 @@ export function AppSidebar() {
 
       {/* Pílula de busca flutuante (mobile) */}
       <div className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:hidden">
-        <div className="flex w-auto max-w-full items-center gap-3 rounded-2xl border border-border bg-card px-5 py-3 shadow-lg">
+        <div className="flex w-auto max-w-full items-center gap-2.5 rounded-2xl border border-border bg-card px-4 py-2.5 shadow-lg">
           <Search className="size-5 shrink-0 text-muted-foreground" />
           <input
             type="search"
             placeholder="Find..."
             aria-label="Pesquisar"
-            className="w-32 min-w-0 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
+            className="w-24 min-w-0 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
           />
           <span className="h-6 w-px shrink-0 bg-border" aria-hidden="true" />
           <button
@@ -182,7 +183,7 @@ export function AppSidebar() {
             aria-label={menuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
             className="flex size-6 shrink-0 items-center justify-center text-foreground transition-opacity hover:opacity-70"
           >
-            <X className="size-5" />
+            {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </div>
       </div>

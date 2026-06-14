@@ -82,9 +82,11 @@ function WordsUsedCard() {
         <div className="relative flex flex-col">
         {/* Cabeçalho: ícone + título */}
         <div className="flex items-center gap-2">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-600">
-            <FileText className="size-4" />
-          </span>
+          <MetalFx preset="chromatic" theme="light" variant="icon" strength={1}>
+            <span className="flex size-8 shrink-0 items-center justify-center text-violet-600">
+              <FileText className="size-5" />
+            </span>
+          </MetalFx>
           <p className="text-sm font-bold leading-tight text-foreground">Palavras usadas</p>
         </div>
         <p className="mt-1.5 max-w-[70%] text-[11px] leading-snug text-muted-foreground">
@@ -92,9 +94,11 @@ function WordsUsedCard() {
         </p>
 
         {/* Número em destaque */}
-        <p className="mt-2 text-2xl font-extrabold tracking-tight text-violet-600">
-          {WORDS_USED.toLocaleString("pt-BR")}
-        </p>
+        <MetalFx preset="chromatic" theme="light" variant="text" strength={1}>
+          <p className="mt-2 text-2xl font-extrabold tracking-tight text-violet-600">
+            {WORDS_USED.toLocaleString("pt-BR")}
+          </p>
+        </MetalFx>
 
         {/* Indicador em tempo real */}
         <div className="mt-2 flex items-center gap-2">

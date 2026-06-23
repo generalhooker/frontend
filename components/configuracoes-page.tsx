@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { PlusIcon, ImageUp, Moon } from "lucide-react"
+import { PlusIcon, ImageUp, Sun, Moon, Monitor, PanelLeft, Search } from "lucide-react"
 import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
@@ -26,10 +26,12 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Rows3, GalleryHorizontalEnd } from "lucide-react"
-import type { NavStyle } from "@/app/page"
+
+export type NavStyle = "navbar" | "floating-tabs"
+export type DesktopNavStyle = "sidebar" | "floating-search"
+export type Theme = "light" | "dark" | "slate"
 
 const DEFAULT_USER = {
   name: "Nome do Usuário",
@@ -49,21 +51,23 @@ function getInitials(name: string) {
 export function ConfiguracoesPage({
   navStyle = "navbar",
   onNavStyleChange,
+  desktopNavStyle = "sidebar",
+  onDesktopNavStyleChange,
+  theme = "light",
+  onThemeChange,
 }: {
   navStyle?: NavStyle
   onNavStyleChange?: (style: NavStyle) => void
+  desktopNavStyle?: DesktopNavStyle
+  onDesktopNavStyleChange?: (style: DesktopNavStyle) => void
+  theme?: Theme
+  onThemeChange?: (t: Theme) => void
 }) {
   const [user, setUser] = useState(DEFAULT_USER)
   const [draftName, setDraftName] = useState(user.name)
   const [draftEmail, setDraftEmail] = useState(user.email)
   const [showUpload, setShowUpload] = useState(false)
   const [avatarUrl, setAvatarUrl] = useState("")
-  const [darkMode, setDarkMode] = useState(false)
-
-  function toggleDarkMode(checked: boolean) {
-    setDarkMode(checked)
-    document.documentElement.classList.toggle("dark", checked)
-  }
   const wrapperRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -137,7 +141,6 @@ export function ConfiguracoesPage({
               </AvatarBadge>
             </Avatar>
 
-            {/* Input de arquivo oculto */}
             <input
               ref={fileInputRef}
               type="file"
@@ -146,7 +149,6 @@ export function ConfiguracoesPage({
               onChange={handleFileChange}
             />
 
-            {/* Card de upload */}
             {showUpload && (
               <div className="absolute left-0 top-[calc(100%+0.5rem)] z-10 w-64 rounded-2xl border border-border bg-card shadow-lg">
                 <Empty className="m-3 border border-dashed">
@@ -248,7 +250,7 @@ export function ConfiguracoesPage({
 
       <Separator className="my-6" />
 
-      {/* Exclusivo Mobile — só aparece em telas pequenas */}
+      {/* Exclusivo Mobile */}
       <section aria-labelledby="mobile-heading" className="md:hidden">
         <h2
           id="mobile-heading"
@@ -288,6 +290,46 @@ export function ConfiguracoesPage({
 
       <Separator className="my-6 md:hidden" />
 
+      {/* Exclusivo Desktop */}
+      <section aria-labelledby="desktop-heading" className="hidden md:block">
+        <h2
+          id="desktop-heading"
+          className="mb-4 text-sm font-medium uppercase tracking-wide text-muted-foreground"
+        >
+          Exclusivo Desktop
+        </h2>
+
+        <div className="rounded-2xl border border-border bg-card p-5">
+          <div className="flex items-center justify-between gap-4">
+            <div className="min-w-0 flex-1">
+              <p className="text-lg font-bold text-foreground">Navegação</p>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                Escolha como a barra de navegação aparece no seu computador.
+              </p>
+            </div>
+          </div>
+
+          <Tabs
+            value={desktopNavStyle}
+            onValueChange={(val) => onDesktopNavStyleChange?.(val as DesktopNavStyle)}
+            className="mt-4"
+          >
+            <TabsList className="w-full">
+              <TabsTrigger value="sidebar" className="flex-1 gap-2">
+                <PanelLeft className="size-4 shrink-0" />
+                Sidebar
+              </TabsTrigger>
+              <TabsTrigger value="floating-search" className="flex-1 gap-2">
+                <Search className="size-4 shrink-0" />
+                Flutuante
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+      </section>
+
+      <Separator className="my-6 hidden md:block" />
+
       <section aria-labelledby="opcoes-heading">
         <h2
           id="opcoes-heading"
@@ -297,24 +339,33 @@ export function ConfiguracoesPage({
         </h2>
 
         <div className="rounded-2xl border border-border bg-card p-5">
-          <div className="flex items-center justify-between gap-4">
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <Moon className="size-4 shrink-0 text-muted-foreground" />
-                <p className="text-lg font-bold text-foreground">Tema escuro</p>
-              </div>
-              <p className="mt-0.5 text-sm text-muted-foreground">
-                Ativa o modo escuro em toda a aplicação. Ideal para ambientes com pouca luz, reduz o cansaço visual e economiza bateria em telas OLED.
-              </p>
-            </div>
-            <Checkbox
-              id="dark-mode"
-              name="dark-mode"
-              checked={darkMode}
-              onCheckedChange={(val) => toggleDarkMode(val === true)}
-              className="size-5 rounded-md"
-            />
+          <div className="min-w-0 flex-1">
+            <p className="text-lg font-bold text-foreground">Tema</p>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              Escolha a aparência da aplicação.
+            </p>
           </div>
+
+          <Tabs
+            value={theme}
+            onValueChange={(val) => onThemeChange?.(val as Theme)}
+            className="mt-4"
+          >
+            <TabsList className="w-full">
+              <TabsTrigger value="light" className="flex-1 gap-2">
+                <Sun className="size-4 shrink-0" />
+                Claro
+              </TabsTrigger>
+              <TabsTrigger value="dark" className="flex-1 gap-2">
+                <Moon className="size-4 shrink-0" />
+                Escuro
+              </TabsTrigger>
+              <TabsTrigger value="slate" className="flex-1 gap-2">
+                <Monitor className="size-4 shrink-0" />
+                Cinza
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
         </div>
       </section>
     </div>

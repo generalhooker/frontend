@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { PlusIcon, ImageUp, Sun, Moon, Monitor, PanelLeft, Search } from "lucide-react"
+import { PlusIcon, ImageUp, Sun, Moon, PanelLeft, Search } from "lucide-react"
 import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
@@ -31,7 +31,7 @@ import { Rows3, GalleryHorizontalEnd } from "lucide-react"
 
 export type NavStyle = "navbar" | "floating-tabs"
 export type DesktopNavStyle = "sidebar" | "floating-search"
-export type Theme = "light" | "dark" | "slate"
+export type Theme = "light" | "dark"
 
 const DEFAULT_USER = {
   name: "Nome do Usuário",
@@ -359,10 +359,6 @@ export function ConfiguracoesPage({
               <TabsTrigger value="dark" className="flex-1 gap-2">
                 <Moon className="size-4 shrink-0" />
                 Escuro
-              </TabsTrigger>
-              <TabsTrigger value="slate" className="flex-1 gap-2">
-                <Monitor className="size-4 shrink-0" />
-                Cinza
               </TabsTrigger>
             </TabsList>
           </Tabs>

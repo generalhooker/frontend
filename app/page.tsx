@@ -5,7 +5,7 @@ import type { NavStyle, DesktopNavStyle, Theme } from "@/components/configuracoe
 
 function getInitialTheme(): Theme {
   const saved = localStorage.getItem("theme") as Theme | null
-  if (saved === "slate" || saved === "dark" || saved === "light") return saved
+  if (saved === "dark" || saved === "light") return saved
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
 }
 

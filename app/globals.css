@@ -6,8 +6,8 @@
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: var(--font-geist-sans), 'Geist Fallback';
-  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -119,67 +119,8 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-
-/* ===== Slate theme — palette custom ===== */
-.slate {
-  color-scheme: dark;
-
-  /* ── suas variáveis personalizadas ── */
-  --bg: #1B1F22;
-  --bg-elevated: #23272B;
-  --bg-soft: #2B3036;
-  --border-soft: #3D4249;
-  --text: #F2F2F3;
-  --text-muted: #909194;
-  --text-soft: #687581;
-  --primary-strong: #7CD8C0;
-  --secondary-color: #F8C8A1;
-  --secondary-strong: #F0AF82;
-  --success: #A1ECD6;
-  --warning: #F8C8A1;
-  --danger: #E58B8B;
-  --info: #8FB9FF;
-  --hover: #2A2F35;
-  --active: #2E333A;
-  --selected: rgba(161, 236, 214, 0.14);
-  --shadow: rgba(0, 0, 0, 0.35);
-
-  /* ── variáveis shadcn/tailwind mapeadas ── */
-  --background: #1B1F22;
-  --foreground: #F2F2F3;
-  --card: #23272B;
-  --card-foreground: #F2F2F3;
-  --popover: #23272B;
-  --popover-foreground: #F2F2F3;
-  --primary: #A1ECD6;
-  --primary-foreground: #1B1F22;
-  --secondary: #2B3036;
-  --secondary-foreground: #F2F2F3;
-  --muted: #2B3036;
-  --muted-foreground: #909194;
-  --accent: #2A2F35;
-  --accent-foreground: #F2F2F3;
-  --destructive: #E58B8B;
-  --border: #383D44;
-  --input: #383D44;
-  --ring: #A1ECD6;
-  --chart-1: #A1ECD6;
-  --chart-2: #F8C8A1;
-  --chart-3: #E58B8B;
-  --chart-4: #8FB9FF;
-  --chart-5: #909194;
-  --sidebar: #171A1D;
-  --sidebar-foreground: #F2F2F3;
-  --sidebar-primary: #A1ECD6;
-  --sidebar-primary-foreground: #1B1F22;
-  --sidebar-accent: #2A2F35;
-  --sidebar-accent-foreground: #F2F2F3;
-  --sidebar-border: #383D44;
-  --sidebar-ring: #A1ECD6;
-}
-
 @media (prefers-color-scheme: dark) {
-  :root:not(.light):not(.slate):not(.dark) {
+  :root:not(.light):not(.dark) {
     color-scheme: dark;
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
